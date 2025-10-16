@@ -1,0 +1,40 @@
+CREATE DATABASE myshop;
+USE myshop;
+
+CREATE TABLE shop_categories (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  image VARCHAR(255) DEFAULT NULL
+);
+
+CREATE TABLE shop_products (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(150) NOT NULL,
+  description TEXT,
+  price DECIMAL(10,2) NOT NULL,
+  category_id INT,
+  image VARCHAR(255),
+  FOREIGN KEY (category_id) REFERENCES shop_categories(id) ON DELETE CASCADE
+);
+
+CREATE TABLE shop_users (
+  id INT AUTO_INCREMENT  PRIMARY KEY,
+  username VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert sample categories
+INSERT INTO shop_categories (name, image) VALUES
+('Electronics', 'electronics1.png'),
+('Clothing', 'cloths.png'),
+('Books', 'books.png');
+
+-- Insert sample products
+INSERT INTO shop_products (name, description, price, category_id, image) VALUES
+('Smartphone', 'Latest Android smartphone', 15000.00, 1, 'smartphone.png'),
+('Laptop', 'High performance laptop', 55000.00, 1, 'laptop.png'),
+('T-Shirt', 'Cotton T-shirt for men', 499.00, 2, 'tshirt.png'),
+('Jeans', 'Denim jeans for women', 1299.00, 2, 'jeans.png'),
+('Programming Book', 'Learn PHP and MySQL easily', 799.00, 3, 'programming_book.png'),
+('Novel', 'A popular fiction novel', 399.00, 3, 'novel.png');
